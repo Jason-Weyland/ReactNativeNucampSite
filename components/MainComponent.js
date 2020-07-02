@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Directory from "./DirectoryComponent";
-import Home from './HomeComponent';
+import Home from "./HomeComponent";
 import CampsiteInfo from "./CampsiteInfoComponent";
 import { View, Platform } from "react-native";
 import { createStackNavigator, createDrawerNavigator } from "react-navigation";
@@ -39,17 +39,17 @@ const HomeNavigator = createStackNavigator(
       },
     },
   }
-)
+);
 
 const MainNavigator = createDrawerNavigator(
   {
-    Home: {screen: HomeNavigator},
-    Directory: {screen: DirectoryNavigator}
+    Home: { screen: HomeNavigator },
+    Directory: { screen: DirectoryNavigator },
   },
   {
-    drawerBackgroundColor: '#CEC8FF'
+    drawerBackgroundColor: "#CEC8FF",
   }
-)
+);
 
 class Main extends Component {
   render() {
