@@ -33,6 +33,27 @@ export const addComments = (comments) => ({
   payload: comments,
 });
 
+export const postComment = (campsiteId, rating, author, text) => (dispatch, getState) => {
+  const newComment = {
+    campsiteId,
+    rating,
+    author,
+    text,
+  };
+  const commentsArr = getState()
+  newComment.date = new Date().toISOString();
+  newComment.id = commentsArr.comments.comments.length
+
+  return setTimeout(() => {
+    dispatch(addComment(newComment))}, 2000
+  )
+};
+
+export const addComment = (comment) => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: comment
+})
+
 export const fetchCampsites = () => (dispatch) => {
   dispatch(campsitesLoading());
 
