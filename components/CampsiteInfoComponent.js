@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert, PanResponder } from "react-native";
+import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert, PanResponder, Share } from "react-native";
 import { Card, Icon, Rating, Input } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
@@ -64,6 +64,17 @@ function RenderCampsite(props) {
     }
   })
 
+  const shareCampsite = (title, message, url) => {
+    Share.share({
+      title: title,
+      message: `${title}: ${message} ${url}`,
+      url: url
+    },
+    {
+      dialogTitle: `Share ${title}`
+    });
+  }
+
   if (campsite) {
     return (
       <Animatable.View animation='fadeInDown' duration={2000} delay={1000} ref={view} {...panResponder.panHandlers}>
@@ -72,6 +83,14 @@ function RenderCampsite(props) {
           <View style={styles.cardRow}>
           <Icon name={props.favorite ? "heart" : "heart-o"} type="font-awesome" color="#f50" raised reverse onPress={() => (props.favorite ? console.log("Already set as a favorite") : props.markFavorite())} />
           <Icon name={'pencil'} type='font-awesome' reverse raised color='#5673DD' onPress={() => props.onShowModal()} style={styles.cardItem}/>
+          <Icon
+            name={'share'}
+            type={'font-awesome'}
+            color='#5637DD'
+            raised
+            reverse
+            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)}
+          />
           </View>
         </Card>
       </Animatable.View>
@@ -98,6 +117,8 @@ const RenderComments = ({ comments }) => {
     </Animatable.View>
   );
 };
+
+
 
 class CampsiteInfo extends Component {
   constructor(props) {
